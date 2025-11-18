@@ -15,7 +15,7 @@ with st.form("expense_form"):
   description = st.text_input("Description")
 
 submitted = st.form_submit_button("Add Expense")
-  if submitted:
+if submitted:
     new_expense = pd.DataFrame((
       'Date': [date],
       'Category': [category],

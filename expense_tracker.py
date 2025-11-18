@@ -16,12 +16,12 @@ with st.form("expense_form"):
 
 submitted = st.form_submit_button("Add Expense")
 if submitted:
-    new_expense = pd.DataFrame((
+    new_expense = pd.DataFrame([
       'Date': [date],
       'Category': [category],
       'Amount': [amount],
       'Description': [description]
-  ))
+])
   st.session_state.expenses = pd.concat((st.session_state.expenses, new_expense), ignore_index=True)
   st.success("Expense added successfully!")
   

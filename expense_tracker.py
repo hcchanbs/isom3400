@@ -1,0 +1,43 @@
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+
+st.title("Personal Expense Tracker")
+
+if 'expenses' not in st.session_state:
+  st.session_state.key = pd.DataFrame(columns=['Date','Category','Amount','Description'])
+
+with st.form("expense_form"):
+  st.subheader("Add New Expense")
+  date = st.data_input("Date")
+  category = st.selectbox("Category", ["Food","Transport","Entertainment","Bills","Others"])
+  amount = st.number_input("Amount", min_value=0.0, step=o.o1)
+  description = st.text_input("Description")
+
+submitted = st.form_submit_button("Add Expense")
+if submitted:
+  new_expense = pd.DataFrame((
+    'Date': [date],
+    'Category': [category],
+    'Amount': [amount],
+    'Description': [description]
+))
+st.session_state.expenses = pd.concat((st.session_state.expenses, new_expense), ignore_index=True)
+st.success("Expense added successfully!")
+
+if not st.session_state.expenses.empty:
+  st.subheader("Your Expenses")
+  st.dataframe(st.session_state.expenses)
+
+  st.subheader("Summary")
+  total_spent = st.session_state.expenses['Amount'].sum()
+  st.write(f"Total Spent: ${total_spent:.2f}")
+
+  category_totals = st.session_state.expenses.groupby("Category")["Amount"].sum()
+  
+  fig as = plt.subplots(figsize = (10,6))
+  as.pie(category_totals.values, label=category_totals.index, autopct)
+  as.set_title("Expenses bhy Category")
+  st.pyplot(fig)
+else:
+  pass

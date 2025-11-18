@@ -15,29 +15,29 @@ with st.form("expense_form"):
   description = st.text_input("Description")
 
 submitted = st.form_submit_button("Add Expense")
-if submitted:
-  new_expense = pd.DataFrame((
-    'Date': [date],
-    'Category': [category],
-    'Amount': [amount],
-    'Description': [description]
-))
-st.session_state.expenses = pd.concat((st.session_state.expenses, new_expense), ignore_index=True)
-st.success("Expense added successfully!")
-
-if not st.session_state.expenses.empty:
-  st.subheader("Your Expenses")
-  st.dataframe(st.session_state.expenses)
-
-  st.subheader("Summary")
-  total_spent = st.session_state.expenses['Amount'].sum()
-  st.write(f"Total Spent: ${total_spent:.2f}")
-
-  category_totals = st.session_state.expenses.groupby("Category")["Amount"].sum()
+  if submitted:
+    new_expense = pd.DataFrame((
+      'Date': [date],
+      'Category': [category],
+      'Amount': [amount],
+      'Description': [description]
+  ))
+  st.session_state.expenses = pd.concat((st.session_state.expenses, new_expense), ignore_index=True)
+  st.success("Expense added successfully!")
   
-  fig as = plt.subplots(figsize = (10,6))
-  as.pie(category_totals.values, label=category_totals.index, autopct)
-  as.set_title("Expenses bhy Category")
-  st.pyplot(fig)
-else:
-  pass
+  if not st.session_state.expenses.empty:
+    st.subheader("Your Expenses")
+    st.dataframe(st.session_state.expenses)
+  
+    st.subheader("Summary")
+    total_spent = st.session_state.expenses['Amount'].sum()
+    st.write(f"Total Spent: ${total_spent:.2f}")
+  
+    category_totals = st.session_state.expenses.groupby("Category")["Amount"].sum()
+    
+    fig as = plt.subplots(figsize = (10,6))
+    as.pie(category_totals.values, label=category_totals.index, autopct)
+    as.set_title("Expenses bhy Category")
+    st.pyplot(fig)
+  else:
+    pass

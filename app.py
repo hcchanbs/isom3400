@@ -33,8 +33,9 @@ with tab2:
         "Very satisfied with the product quality.",
         "Quick delivery and excellent support."
     ]
-    for idx, feedback in enumerate(customer_feedback):
-        st.write(f"{idx+1}. {feedback}")
+    for feedback in customer_feedback:
+        st.write(f"{idx}. {feedback}")
+        idx += 1
 with tab3:
     st.write("Content for Market Trends")
     market_trends = {
